@@ -1,0 +1,22 @@
+Korean Historical Place-Name NER
+Copyright 2026 양정현 (Yang Jeonghyeon)
+
+Licensed under the Apache License, Version 2.0.
+
+------------------------------------------------------------------------
+This product includes model weights derived from SikuRoBERTa
+(SIKU-BERT/sikuroberta), created by the SIKU-BERT team,
+Nanjing Agricultural University, and licensed under the
+Apache License, Version 2.0.
+Source: https://huggingface.co/SIKU-BERT/sikuroberta
+
+Modifications:
+A 3-class token-classification head (O / B-LOC / I-LOC) was added on top
+of the SikuRoBERTa encoder and fine-tuned for place-name named entity
+recognition on the indexed XML historical corpora of the Korean History
+Database, National Institute of Korean History (국사편찬위원회).
+
+------------------------------------------------------------------------
+The indexed XML source texts used for training are NOT redistributed in
+this repository and remain subject to the terms of the National Institute
+of Korean History and the Korea Public Data Portal (https://www.data.go.kr/).
