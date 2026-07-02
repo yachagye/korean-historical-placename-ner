@@ -43,8 +43,7 @@
 | 2 새니티 | `2_NER_새니티학습_Lightning.py` | 단시간 학습으로 붕괴 여부 점검 |
 | 3 본학습 | `3_NER_학습_Lightning.py` | `train/val.jsonl` → `best.ckpt`, 로그 |
 | 4 추론·병합 | `4_NER_추론_txt.py` | 원문 txt + ckpt → 단독/통합본/검수통합본 |
-| 부속 | `NER_model_loader.py` | ckpt → SikuRoBERTa + 분류기 복원 (추론·평가 공통 로더) |
-| 부속 | `NER_모델평가.py` | ckpt + val.jsonl → span exact 평가, FN/FP 분석 |
+| 부속 | `NER_model_loader.py` | ckpt → SikuRoBERTa + 분류기 복원 (추론 공통 로더) |
 | 부속 | `xml_메타데이터_분석.py` | 색인 XML 전수 집계 (출처·장르별 태깅률·밀도) |
 | 부속 | `지명DB_정제.py` | 지명DB → 정제본 CSV |
 | 부속 | `지명DB_추론_검수.py` | `[]` 태깅 txt + 정제 지명DB → DB 활용 검수본 |
