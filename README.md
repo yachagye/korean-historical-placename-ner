@@ -6,7 +6,7 @@
 
 ## 한국어
 
-색인 XML 사료를 학습 정답(gold label)으로 삼아, 조선시대 한문 사료에서 **지명 개체**를 자동 추출하는 개체명 인식(NER) 파이프라인입니다. 국사편찬위원회 한국사데이터베이스의 색인 태그를 정답으로 사용하며, 사료별 색인 관례의 편차를 두 모델의 판정 분기로 전환한 **이질 앙상블(heterogeneous ensemble)** 구조로 재현과 정밀을 함께 확보합니다.
+색인 XML 사료를 학습 정답(gold label)으로 삼아, 조선시대 한문 사료에서 **지명 개체**를 자동 추출하는 개체명 인식(NER) 파이프라인입니다. 국사편찬위원회 한국사데이터베이스의 색인 태그를 학습 데이터로 사용하며, 사료별 색인 관례의 편차를 두 모델의 판정 분기로 전환한 **이질 앙상블(heterogeneous ensemble)** 구조로 재현과 정밀을 함께 확보합니다.
 
 관련 논문: 양정현, 「색인 XML 사료를 활용한 조선시대 역사 지명 개체명 인식 모델의 구축」 (투고 중, 게재 확정 시 서지·DOI 갱신 예정).
 선행 연구(표점 추론): [korean-classical-chinese-punctuation](https://github.com/yachagye/korean-classical-chinese-punctuation)
