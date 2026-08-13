@@ -6,7 +6,7 @@
 
 ## 한국어
 
-색인 XML 사료를 학습 정답(gold label)으로 삼아, 한국 고전 한문 사료에서 **지명 개체**를 자동 추출하는 개체명 인식(NER) 파이프라인입니다. 국사편찬위원회 한국사데이터베이스의 색인 태그를 학습 데이터로 사용하며, 사료별 색인 관례의 편차를 두 모델의 판정 분기로 전환한 **이질 앙상블(heterogeneous ensemble)** 구조로 재현과 정밀을 함께 확보합니다.
+색인 XML 사료를 학습 정답(gold label)으로 삼아, 한국 고전 한문 사료에서 **지명 개체**를 자동 추출하는 개체명 인식(NER) 파이프라인입니다. 국사편찬위원회 한국사데이터베이스의 색인 태그를 학습 데이터로 사용하며, 사료별 색인 관례의 편차를 두 모델의 판정 분기로 전환한 **앙상블(ensemble)** 구조로 재현과 정밀을 함께 확보합니다.
 
 관련 논문: 양정현, 2026, 「색인 XML 사료를 활용한 한국 역사 지명 개체명 인식 모델의 구축」, 『한국사학보』 104 (면수·DOI 확정 시 갱신 예정).
 
@@ -60,7 +60,7 @@
 - `c` 본문(무표점 한자열), `l` 문자 단위 라벨, `n` 길이, `id` 기사 ID, `src` 출처, `p` 인명 구간 메타필드(지명·인명 2-클래스 확장용으로 보존).
 - 기사 ID 해시 분할로 train/val 분리(분할 누수 0 보장).
 
-#### 이질 앙상블 병합
+#### 앙상블 병합
 
 동일 원문을 두 모델로 각각 추론한 뒤 예측을 개체 수준에서 결합합니다.
 
@@ -152,7 +152,7 @@ python 3_NER_학습_Lightning.py --data_dir data
 
 ## English
 
-A named entity recognition (NER) pipeline that automatically extracts **place-name entities** from Korean historical sources written in Classical Chinese (Literary Sinitic), using indexed XML sources as gold labels. The index tags of the Korean History Database (National Institute of Korean History, 국사편찬위원회) are reused directly as gold labels without any additional manual annotation. A **heterogeneous ensemble** design turns the divergence of indexing conventions across sources into complementary model judgments, securing both recall and precision.
+A named entity recognition (NER) pipeline that automatically extracts **place-name entities** from Korean historical sources written in Classical Chinese (Literary Sinitic), using indexed XML sources as gold labels. The index tags of the Korean History Database (National Institute of Korean History, 국사편찬위원회) are reused directly as gold labels without any additional manual annotation. An **ensemble** design turns the divergence of indexing conventions across sources into complementary model judgments, securing both recall and precision.
 
 Paper: Yang Jung-Hyun, 2026, *Building a Named Entity Recognition Model for Korean Historical Place Names from Indexed XML Corpora*, *The Journal for the Studies of Korean History*, (104) (page range and DOI to follow).
 
@@ -206,7 +206,7 @@ Sources are converted to character-level BIO labels (0=O, 1=B-LOC, 2=I-LOC).
 - `c` text (unpunctuated Chinese-character string), `l` character-level labels, `n` length, `id` article ID, `src` source, `p` person-name span metadata (preserved for a future two-class place/person extension).
 - Train/val split by article-ID hashing (zero split leakage guaranteed).
 
-#### Heterogeneous ensemble merging
+#### Ensemble merging
 
 The same text is inferred by both models, and predictions are combined at the entity level.
 
