@@ -8,12 +8,11 @@
 
 색인 XML 사료를 학습 정답(gold label)으로 삼아, 조선시대 한문 사료에서 **지명 개체**를 자동 추출하는 개체명 인식(NER) 파이프라인입니다. 국사편찬위원회 한국사데이터베이스의 색인 태그를 학습 데이터로 사용하며, 사료별 색인 관례의 편차를 두 모델의 판정 분기로 전환한 **이질 앙상블(heterogeneous ensemble)** 구조로 재현과 정밀을 함께 확보합니다.
 
-관련 논문: 양정현, 「색인 XML 사료를 활용한 조선시대 역사 지명 개체명 인식 모델의 구축」 (투고 중, 게재 확정 시 서지·DOI 갱신 예정).
-선행 연구(표점 추론): [korean-classical-chinese-punctuation](https://github.com/yachagye/korean-classical-chinese-punctuation)
+관련 논문: 양정현, 2026, 「색인 XML 사료를 활용한 조선시대 역사 지명 개체명 인식 모델의 구축」, 『한국사학보』 104 (면수·DOI 확정 시 갱신 예정).
 
 ### 핵심 특징
 
-- **색인 태그 = gold label**: 색인 XML의 전수 태깅을 정답으로 직접 학습. 태깅되지 않은 위치는 신뢰 가능한 부정 예시로 사용.
+- **색인 태그 = gold label**: 색인 XML의 태깅을 정답으로 직접 학습. 고태깅 출전에서는 태깅되지 않은 위치를 신뢰 가능한 부정 예시로 사용.
 - **두 모델 구성**: 동일 아키텍처(SikuRoBERTa + 토큰 분류)에 학습 출처 구성만 달리하여 상보적 판정 양상을 확보.
 - **개체 단위 평가**: O 라벨이 약 98.3%를 차지하므로 토큰 micro F1 대신 **개체 완전 일치(span exact match)** P/R/F1로 평가.
 - **단계적 검수**: 자동 병합 → 수동 검수 → 지명 데이터베이스 활용 검수로 이어지는 재현 가능한 스크립트 체계.
@@ -46,7 +45,7 @@
 | 3 본학습 | `3_NER_학습_Lightning.py` | `train/val.jsonl` → `best.ckpt`, 로그 |
 | 4 추론·병합 | `4_NER_추론_txt.py` | 원문 txt + ckpt → 단독/통합본/검수통합본 |
 | 부속 | `NER_model_loader.py` | ckpt → SikuRoBERTa + 분류기 복원 (추론 공통 로더) |
-| 부속 | `xml_메타데이터_분석.py` | 색인 XML 전수 집계 (출처·장르별 태깅률·밀도) |
+| 부속 | `xml_메타데이터_분석.py` | 색인 XML 전수 집계 → [`xml_메타데이터_분석/`](xml_메타데이터_분석/) 수록 |
 | 부속 | `지명DB_정제.py` | 지명DB → 정제본 CSV |
 | 부속 | `지명DB_추론_검수.py` | `[]` 태깅 txt + 정제 지명DB → DB 활용 검수본 |
 
@@ -79,7 +78,7 @@
 #### 설치
 
 ```bash
-pip install torch pytorch-lightning transformers
+pip install -r requirements.txt
 ```
 
 #### 추론
@@ -115,16 +114,29 @@ python 3_NER_학습_Lightning.py --data_dir data
 
 ### 데이터 출처
 
-학습 자료는 국사편찬위원회 한국사데이터베이스의 색인 XML 사료입니다. 원본 XML은 [공공데이터포털](https://www.data.go.kr/)에서 내려받을 수 있습니다. **본 저장소는 원본 사료를 재배포하지 않으며**, 변환·학습·추론 코드와 학습된 가중치만 공개합니다.
+학습 자료는 국사편찬위원회 한국사데이터베이스의 색인 XML 사료입니다. 원본 XML은 [공공데이터포털](https://www.data.go.kr/)에서 내려받을 수 있습니다. 사용한 데이터셋(명칭 말미는 포털 기준일)은 다음과 같습니다.
+
+- [교육부 국사편찬위원회_조선왕조실록 정보_실록원문_20221103](https://www.data.go.kr/data/15053647/fileData.do)
+- [교육부 국사편찬위원회_승정원일기 정보_20221103](https://www.data.go.kr/data/15064218/fileData.do)
+- [교육부 국사편찬위원회_조선왕조실록 정보_고순종실록 원문_20221103](https://www.data.go.kr/data/15053646/fileData.do)
+- [교육부 국사편찬위원회_한국사데이터베이스 정보_한국사료총서 원문_20240912](https://www.data.go.kr/data/15053632/fileData.do)
+- [교육부 국사편찬위원회_한국사데이터베이스 정보_고려사 원문_20221103](https://www.data.go.kr/data/15053637/fileData.do)
+- [교육부 국사편찬위원회_한국사데이터베이스 정보_고려사절요 원문_20230518](https://www.data.go.kr/data/15115521/fileData.do)
+- [교육부 국사편찬위원회_한국사데이터베이스 정보_삼국사기 원문_20221103](https://www.data.go.kr/data/15053635/fileData.do)
+- [교육부 국사편찬위원회_한국사데이터베이스 정보_삼국유사 원문_20221103](https://www.data.go.kr/data/15053634/fileData.do)
+
+**본 저장소는 원본 사료를 재배포하지 않으며**, 변환·학습·추론 코드와 학습된 가중치만 공개합니다.
 
 ### 인용
 
 ```bibtex
-@article{yang_placename_ner,
+@article{yang2026placename,
   author  = {양정현},
   title   = {색인 XML 사료를 활용한 조선시대 역사 지명 개체명 인식 모델의 구축},
-  note    = {투고 중 — 게재 확정 시 서지·DOI 갱신 예정},
-  year    = {2026}
+  journal = {한국사학보},
+  number  = {104},
+  year    = {2026},
+  note    = {면수·DOI 확정 시 갱신 예정}
 }
 ```
 
@@ -142,12 +154,11 @@ python 3_NER_학습_Lightning.py --data_dir data
 
 A named entity recognition (NER) pipeline that automatically extracts **place-name entities** from Classical Chinese (Literary Sinitic) historical sources of the Joseon dynasty, using indexed XML sources as gold labels. The index tags of the Korean History Database (National Institute of Korean History, 국사편찬위원회) are reused directly as gold labels without any additional manual annotation. A **heterogeneous ensemble** design turns the divergence of indexing conventions across sources into complementary model judgments, securing both recall and precision.
 
-Paper: Yang Jung-Hyun, *Building a Named Entity Recognition Model for Historical Place Names of the Joseon Dynasty Using Indexed XML Sources* (under review; citation and DOI will be updated upon acceptance).
-Prior work (punctuation restoration): [korean-classical-chinese-punctuation](https://github.com/yachagye/korean-classical-chinese-punctuation)
+Paper: Yang Jung-Hyun, 2026, *Building a Named Entity Recognition Model for Historical Place Names of the Joseon Dynasty Using Indexed XML Sources*, *The Journal for the Studies of Korean History*, (104) (page range and DOI to follow).
 
 ### Key features
 
-- **Index tags as gold labels**: the exhaustive index tagging in the XML sources is learned directly as ground truth; untagged positions serve as reliable negative examples.
+- **Index tags as gold labels**: index tagging in the XML sources is learned directly as ground truth; in densely indexed sources, untagged positions serve as reliable negative examples.
 - **Two-model design**: identical architecture (SikuRoBERTa + token classification) trained on different source compositions, yielding complementary judgment patterns.
 - **Entity-level evaluation**: since O labels account for ~98.3% of tokens, evaluation uses **span exact match** P/R/F1 rather than token-level micro F1, which would inflate scores.
 - **Staged review**: a reproducible script-based workflow from automatic merging to manual review to gazetteer-assisted review.
@@ -180,7 +191,7 @@ Conversion → validation → sanity check → main training → inference & mer
 | 3 Training | `3_NER_학습_Lightning.py` | `train/val.jsonl` → `best.ckpt`, logs |
 | 4 Inference & merge | `4_NER_추론_txt.py` | source txt + ckpt → single-model / merged / reviewed-merged outputs |
 | Utility | `NER_model_loader.py` | ckpt → restores SikuRoBERTa + classifier (shared inference loader) |
-| Utility | `xml_메타데이터_분석.py` | exhaustive XML metadata census (tagging rates and densities by source/genre) |
+| Utility | `xml_메타데이터_분석.py` | exhaustive XML metadata census → outputs in [`xml_메타데이터_분석/`](xml_메타데이터_분석/) |
 | Utility | `지명DB_정제.py` | gazetteer → cleaned CSV |
 | Utility | `지명DB_추론_검수.py` | `[]`-tagged txt + cleaned gazetteer → gazetteer-assisted review output |
 
@@ -213,7 +224,7 @@ Automatic merging (`_통합본`) → manual selection on overlapping cases (`_�
 #### Installation
 
 ```bash
-pip install torch pytorch-lightning transformers
+pip install -r requirements.txt
 ```
 
 #### Inference
@@ -249,16 +260,29 @@ Key hyperparameters: max_length 256 (character-level), batch_size 80 (effective 
 
 ### Data sources
 
-The training material consists of indexed XML sources from the Korean History Database, National Institute of Korean History. The original XML files are available from the [Korea Public Data Portal](https://www.data.go.kr/). **This repository does not redistribute the original sources**; only the conversion/training/inference code and trained weights are released.
+The training material consists of indexed XML sources from the Korean History Database, National Institute of Korean History. The original XML files are available from the [Korea Public Data Portal](https://www.data.go.kr/). Datasets used (suffix dates are portal reference dates):
+
+- [교육부 국사편찬위원회_조선왕조실록 정보_실록원문_20221103](https://www.data.go.kr/data/15053647/fileData.do)
+- [교육부 국사편찬위원회_승정원일기 정보_20221103](https://www.data.go.kr/data/15064218/fileData.do)
+- [교육부 국사편찬위원회_조선왕조실록 정보_고순종실록 원문_20221103](https://www.data.go.kr/data/15053646/fileData.do)
+- [교육부 국사편찬위원회_한국사데이터베이스 정보_한국사료총서 원문_20240912](https://www.data.go.kr/data/15053632/fileData.do)
+- [교육부 국사편찬위원회_한국사데이터베이스 정보_고려사 원문_20221103](https://www.data.go.kr/data/15053637/fileData.do)
+- [교육부 국사편찬위원회_한국사데이터베이스 정보_고려사절요 원문_20230518](https://www.data.go.kr/data/15115521/fileData.do)
+- [교육부 국사편찬위원회_한국사데이터베이스 정보_삼국사기 원문_20221103](https://www.data.go.kr/data/15053635/fileData.do)
+- [교육부 국사편찬위원회_한국사데이터베이스 정보_삼국유사 원문_20221103](https://www.data.go.kr/data/15053634/fileData.do)
+
+**This repository does not redistribute the original sources**; only the conversion/training/inference code and trained weights are released.
 
 ### Citation
 
 ```bibtex
-@article{yang_placename_ner,
+@article{yang2026placename,
   author  = {Yang, Jung-Hyun},
   title   = {색인 XML 사료를 활용한 조선시대 역사 지명 개체명 인식 모델의 구축},
-  note    = {under review — citation and DOI will be updated upon acceptance},
-  year    = {2026}
+  journal = {The Journal for the Studies of Korean History},
+  number  = {104},
+  year    = {2026},
+  note    = {page range and DOI to follow}
 }
 ```
 
@@ -269,3 +293,4 @@ Related prior papers:
 ### License
 
 **Apache-2.0.** The base model [SikuRoBERTa](https://huggingface.co/SIKU-BERT/sikuroberta) is distributed under Apache-2.0, and the derived code and weights are released under the same license. Attribution to the base model and a description of modifications are provided in [`NOTICE`](NOTICE). The indexed XML sources used for training are subject to the terms of the [Korea Public Data Portal](https://www.data.go.kr/); this repository does not redistribute the original sources.
+
