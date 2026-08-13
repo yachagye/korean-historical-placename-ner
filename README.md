@@ -1,4 +1,4 @@
-# 조선시대 역사 지명 개체명 인식 (Korean Historical Place-Name NER)
+# 한국 역사 지명 개체명 인식 (Korean Historical Place-Name NER)
 
 **[한국어](#한국어)** | **[English](#english)**
 
@@ -6,9 +6,9 @@
 
 ## 한국어
 
-색인 XML 사료를 학습 정답(gold label)으로 삼아, 조선시대 한문 사료에서 **지명 개체**를 자동 추출하는 개체명 인식(NER) 파이프라인입니다. 국사편찬위원회 한국사데이터베이스의 색인 태그를 학습 데이터로 사용하며, 사료별 색인 관례의 편차를 두 모델의 판정 분기로 전환한 **이질 앙상블(heterogeneous ensemble)** 구조로 재현과 정밀을 함께 확보합니다.
+색인 XML 사료를 학습 정답(gold label)으로 삼아, 한국 고전 한문 사료에서 **지명 개체**를 자동 추출하는 개체명 인식(NER) 파이프라인입니다. 국사편찬위원회 한국사데이터베이스의 색인 태그를 학습 데이터로 사용하며, 사료별 색인 관례의 편차를 두 모델의 판정 분기로 전환한 **이질 앙상블(heterogeneous ensemble)** 구조로 재현과 정밀을 함께 확보합니다.
 
-관련 논문: 양정현, 2026, 「색인 XML 사료를 활용한 조선시대 역사 지명 개체명 인식 모델의 구축」, 『한국사학보』 104 (면수·DOI 확정 시 갱신 예정).
+관련 논문: 양정현, 2026, 「색인 XML 사료를 활용한 한국 역사 지명 개체명 인식 모델의 구축」, 『한국사학보』 104 (면수·DOI 확정 시 갱신 예정).
 
 ### 핵심 특징
 
@@ -132,7 +132,7 @@ python 3_NER_학습_Lightning.py --data_dir data
 ```bibtex
 @article{yang2026placename,
   author  = {양정현},
-  title   = {색인 XML 사료를 활용한 조선시대 역사 지명 개체명 인식 모델의 구축},
+  title   = {색인 XML 사료를 활용한 한국 역사 지명 개체명 인식 모델의 구축},
   journal = {한국사학보},
   number  = {104},
   year    = {2026},
@@ -152,9 +152,9 @@ python 3_NER_학습_Lightning.py --data_dir data
 
 ## English
 
-A named entity recognition (NER) pipeline that automatically extracts **place-name entities** from Classical Chinese (Literary Sinitic) historical sources of the Joseon dynasty, using indexed XML sources as gold labels. The index tags of the Korean History Database (National Institute of Korean History, 국사편찬위원회) are reused directly as gold labels without any additional manual annotation. A **heterogeneous ensemble** design turns the divergence of indexing conventions across sources into complementary model judgments, securing both recall and precision.
+A named entity recognition (NER) pipeline that automatically extracts **place-name entities** from Korean historical sources written in Classical Chinese (Literary Sinitic), using indexed XML sources as gold labels. The index tags of the Korean History Database (National Institute of Korean History, 국사편찬위원회) are reused directly as gold labels without any additional manual annotation. A **heterogeneous ensemble** design turns the divergence of indexing conventions across sources into complementary model judgments, securing both recall and precision.
 
-Paper: Yang Jung-Hyun, 2026, *Building a Named Entity Recognition Model for Historical Place Names of the Joseon Dynasty Using Indexed XML Sources*, *The Journal for the Studies of Korean History*, (104) (page range and DOI to follow).
+Paper: Yang Jung-Hyun, 2026, *Building a Named Entity Recognition Model for Korean Historical Place Names from Indexed XML Corpora*, *The Journal for the Studies of Korean History*, (104) (page range and DOI to follow).
 
 ### Key features
 
@@ -278,7 +278,7 @@ The training material consists of indexed XML sources from the Korean History Da
 ```bibtex
 @article{yang2026placename,
   author  = {Yang, Jung-Hyun},
-  title   = {색인 XML 사료를 활용한 조선시대 역사 지명 개체명 인식 모델의 구축},
+  title   = {색인 XML 사료를 활용한 한국 역사 지명 개체명 인식 모델의 구축},
   journal = {The Journal for the Studies of Korean History},
   number  = {104},
   year    = {2026},
