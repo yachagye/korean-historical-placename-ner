@@ -1,0 +1,6 @@
+# Training and inference environment: Lightning.ai L40S (Python 3.12, CUDA 12.8 wheel)
+torch==2.8.0
+pytorch-lightning==2.6.0
+transformers==4.57.3
+numpy==1.26.4
+tqdm==4.67.1
