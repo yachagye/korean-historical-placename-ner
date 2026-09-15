@@ -136,7 +136,6 @@ python 3_NER_학습_Lightning.py --data_dir data
   journal = {한국사학보},
   number  = {104},
   year    = {2026},
-  note    = {면수·DOI 확정 시 갱신 예정}
 }
 ```
 
@@ -282,7 +281,6 @@ The training material consists of indexed XML sources from the Korean History Da
   journal = {The Journal for the Studies of Korean History},
   number  = {104},
   year    = {2026},
-  note    = {page range and DOI to follow}
 }
 ```
 
