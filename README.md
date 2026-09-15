@@ -154,7 +154,7 @@ python 3_NER_학습_Lightning.py --data_dir data
 
 A named entity recognition (NER) pipeline that automatically extracts **place-name entities** from Korean historical sources written in Classical Chinese (Literary Sinitic), using indexed XML sources as gold labels. The index tags of the Korean History Database (National Institute of Korean History, 국사편찬위원회) are reused directly as gold labels without any additional manual annotation. An **ensemble** design turns the divergence of indexing conventions across sources into complementary model judgments, securing both recall and precision.
 
-Paper: Yang Jung-Hyun, 2026, *Building a Named Entity Recognition Model for Korean Historical Place Names from Indexed XML Corpora*, *The Journal for the Studies of Korean History*, (104) (page range and DOI to follow).
+Paper: Yang Jung-Hyun, 2026, *Building a Named Entity Recognition Model for Korean Historical Place Names from Indexed XML Corpora*, *The Journal for the Studies of Korean History*, (104).
 
 ### Key features
 
